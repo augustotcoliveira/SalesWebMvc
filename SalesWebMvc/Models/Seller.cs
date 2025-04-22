@@ -1,4 +1,5 @@
-﻿namespace SalesWebMvc.Models
+﻿using System.Linq;
+namespace SalesWebMvc.Models
 {
     public class Seller
     {
@@ -22,6 +23,21 @@
             BirthDate = birthDate;
             BaseSalary = baseSalary;
             Department = department;
+        }
+
+        public void AddSales(SalesRecord sr)
+        {
+            Sales.Add(sr);
+        }
+
+        public void RemoveSales(SalesRecord sr)
+        {
+            Sales.Remove(sr);
+        }
+
+        public double TotalSales(DateTime initial, DateTime final)
+        {
+            return Sales.Where(sr => sr.Date >= initial && sr.Date < final).Select(sr => sr.Amount).Sum();
         }
     }
 }
