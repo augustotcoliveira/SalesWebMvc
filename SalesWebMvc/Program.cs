@@ -19,8 +19,8 @@ namespace SalesWebMvc
                         mySqlOptions.MigrationsAssembly("SalesWebMvc")));
 
             services.AddScoped<SeedingService>(); //registra o servico para rodar uma vez por escopo
-
             services.AddScoped<SellerService>();
+            services.AddScoped<DepartmentService>();
 
             // Add services to the container.
             services.AddControllersWithViews();
