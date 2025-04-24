@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
+using SalesWebMvc.Services;
 namespace SalesWebMvc
 {
     public class Program
@@ -8,18 +9,21 @@ namespace SalesWebMvc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var services = builder.Services;
 
-            builder.Services.AddDbContext<SalesWebMvcContext>(options =>
+            services.AddDbContext<SalesWebMvcContext>(options =>
                 options.UseMySql(
                     builder.Configuration.GetConnectionString("SalesWebMvcContext"),
                     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SalesWebMvcContext")),
                     mySqlOptions =>
                         mySqlOptions.MigrationsAssembly("SalesWebMvc")));
 
-            builder.Services.AddScoped<SeedingService>(); //registra o servico para rodar uma vez por escopo
+            services.AddScoped<SeedingService>(); //registra o servico para rodar uma vez por escopo
+
+            services.AddScoped<SellerService>();
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            services.AddControllersWithViews();
 
             var app = builder.Build();
 
