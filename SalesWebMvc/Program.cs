@@ -21,6 +21,7 @@ namespace SalesWebMvc
             services.AddScoped<SeedingService>(); //registra o servico para rodar uma vez por escopo
             services.AddScoped<SellerService>();
             services.AddScoped<DepartmentService>();
+            services.AddScoped<SalesRecordService>();
 
             // Add services to the container.
             services.AddControllersWithViews();
